@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.metallurg.calculator.ui.LoginController"
+           styleClass="login-root" alignment="CENTER">
+    <VBox styleClass="login-card" alignment="CENTER" spacing="12" maxWidth="400">
+        <Region styleClass="login-mark"/>
+        <Label text="Калькулятор металлурга" styleClass="title"/>
+        <Label text="Вариант 4 · АКОС и МНЛЗ" styleClass="subtitle"/>
+
+        <GridPane hgap="12" vgap="10" alignment="CENTER">
+            <padding>
+                <Insets top="8"/>
+            </padding>
+            <Label text="Логин" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="usernameField" text="admin" promptText="admin" prefWidth="230"
+                       GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <Label text="Пароль" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <PasswordField fx:id="passwordField" text="admin" promptText="пароль" prefWidth="230"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        </GridPane>
+
+        <HBox spacing="10" alignment="CENTER">
+            <padding>
+                <Insets top="6"/>
+            </padding>
+            <Button fx:id="loginButton" text="Войти" styleClass="primary" defaultButton="true" onAction="#onLogin"/>
+            <Button fx:id="registerButton" text="Регистрация" onAction="#onRegister"/>
+        </HBox>
+
+        <Label fx:id="messageLabel" wrapText="true" styleClass="error" maxWidth="340"/>
+        <Label text="Для проверки: admin / admin" styleClass="hint"/>
+    </VBox>
+</StackPane>

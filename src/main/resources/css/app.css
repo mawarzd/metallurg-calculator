@@ -1,0 +1,408 @@
+/*
+ * Калькулятор металлурга.
+ * Сталь и медь: тёмный верх, светлые листы, один акцент.
+ */
+
+.root {
+    -fx-font-family: "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-base: #f4f6f8;
+    -fx-background: #e7ebf0;
+    -fx-control-inner-background: #ffffff;
+    -fx-accent: #b85a2a;
+    -fx-focus-color: #b85a2a;
+    -fx-faint-focus-color: rgba(184, 90, 42, 0.18);
+    -fx-text-fill: #1c2430;
+}
+
+.app-shell {
+    -fx-background-color: #e7ebf0;
+}
+
+/* ---------- вход ---------- */
+
+.login-root {
+    -fx-background-color: linear-gradient(to bottom right, #17202a, #2a3b4c);
+}
+
+.login-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16;
+    -fx-padding: 28 32 26 32;
+    -fx-spacing: 12;
+    -fx-alignment: center;
+    -fx-max-width: 400;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 28, 0.12, 0, 12);
+}
+
+.login-mark {
+    -fx-background-color: #b85a2a;
+    -fx-background-radius: 2;
+    -fx-min-width: 42;
+    -fx-pref-width: 42;
+    -fx-max-width: 42;
+    -fx-min-height: 4;
+    -fx-pref-height: 4;
+    -fx-max-height: 4;
+}
+
+.title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1c2430;
+}
+
+.subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #667384;
+}
+
+.form-label {
+    -fx-text-fill: #3d4a5c;
+    -fx-font-size: 12px;
+}
+
+.error {
+    -fx-text-fill: #a32020;
+    -fx-font-size: 12px;
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
+}
+
+.hint {
+    -fx-text-fill: #8a94a0;
+    -fx-font-size: 12px;
+}
+
+/* ---------- шапка ---------- */
+
+.menu-bar {
+    -fx-background-color: #f7f8fa;
+    -fx-padding: 2 8 2 8;
+    -fx-border-color: transparent transparent #e1e6ec transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.menu-bar .label {
+    -fx-text-fill: #1c2430;
+}
+
+.menu-bar .menu:showing,
+.menu-bar .menu:hover {
+    -fx-background-color: #f3e6dc;
+}
+
+.context-menu {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-color: #e1e6ec;
+    -fx-border-radius: 8;
+    -fx-padding: 4;
+}
+
+.menu-item .label {
+    -fx-text-fill: #1c2430;
+}
+
+.menu-item:focused {
+    -fx-background-color: #f6e6dc;
+    -fx-background-radius: 4;
+}
+
+.toolbar {
+    -fx-background-color: #1e2a36;
+    -fx-padding: 10 16 10 16;
+    -fx-spacing: 14;
+    -fx-alignment: center-left;
+}
+
+.toolbar .label {
+    -fx-text-fill: #f3efe9;
+}
+
+.toolbar .radio-button,
+.toolbar .check-box {
+    -fx-text-fill: #f3efe9;
+}
+
+.toolbar .radio-button > .radio,
+.toolbar .check-box > .box {
+    -fx-background-color: transparent;
+    -fx-border-color: #d9c4b4;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-border-width: 1.4;
+}
+
+.toolbar .check-box > .box {
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+.toolbar .radio-button:selected > .radio > .dot {
+    -fx-background-color: #e7a06a;
+    -fx-background-insets: 0;
+}
+
+.toolbar .check-box:selected > .box > .mark {
+    -fx-background-color: #e7a06a;
+}
+
+/* ---------- вкладки ---------- */
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #f7f8fa;
+}
+
+.tab-pane .tab-header-area .headers-region .tab {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 9 16 8 16;
+    -fx-border-color: transparent transparent transparent transparent;
+    -fx-border-width: 0 0 2 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.tab-pane .tab .tab-label {
+    -fx-text-fill: #667384;
+    -fx-font-size: 13px;
+}
+
+.tab-pane .tab:selected {
+    -fx-border-color: transparent transparent #b85a2a transparent;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #9a4a20;
+    -fx-font-weight: bold;
+}
+
+.tab-pane .tab:hover .tab-label {
+    -fx-text-fill: #1c2430;
+}
+
+.tab-pane .tab-content-area {
+    -fx-background-color: #e7ebf0;
+    -fx-padding: 12;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-color: transparent;
+}
+
+/* ---------- листы ---------- */
+
+.page {
+    -fx-spacing: 10;
+}
+
+.card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12;
+    -fx-border-color: #e3e8ee;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-padding: 16;
+    -fx-spacing: 12;
+    -fx-effect: dropshadow(gaussian, rgba(28, 36, 48, 0.05), 14, 0, 0, 3);
+}
+
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1c2430;
+}
+
+.field-caption {
+    -fx-text-fill: #5c6775;
+    -fx-font-size: 12px;
+    -fx-padding: 6 0 0 0;
+}
+
+.content-scroll,
+.content-scroll > .viewport,
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll-pane {
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+/* ---------- поля и кнопки ---------- */
+
+.button {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cfd6df;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-text-fill: #1c2430;
+    -fx-padding: 7 14 7 14;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+}
+
+.button:hover {
+    -fx-border-color: #b85a2a;
+    -fx-text-fill: #9a4a20;
+}
+
+.button:pressed {
+    -fx-background-color: #f6e6dc;
+}
+
+.button.primary {
+    -fx-background-color: #b85a2a;
+    -fx-border-color: #b85a2a;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.button.primary:hover {
+    -fx-background-color: #9a4a20;
+    -fx-border-color: #9a4a20;
+    -fx-text-fill: white;
+}
+
+.button.primary:pressed {
+    -fx-background-color: #7d3b18;
+}
+
+.text-field,
+.password-field,
+.text-area,
+.combo-box,
+.choice-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d5dbe3;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-prompt-text-fill: #9aa3ad;
+}
+
+.text-field,
+.password-field {
+    -fx-padding: 7 10 7 10;
+}
+
+.text-field:focused,
+.password-field:focused,
+.text-area:focused,
+.combo-box:focused,
+.choice-box:focused {
+    -fx-border-color: #b85a2a;
+    -fx-background-insets: 0;
+}
+
+.text-area {
+    -fx-padding: 8;
+}
+
+.text-area .content {
+    -fx-background-color: #ffffff;
+}
+
+.help-text,
+.help-text .content {
+    -fx-background-color: #fffdf8;
+    -fx-font-family: "Times New Roman", Georgia, serif;
+    -fx-font-size: 15px;
+}
+
+/* ---------- таблицы ---------- */
+
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-border-color: #e3e8ee;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-padding: 0;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #f3f5f8;
+    -fx-background-radius: 10 10 0 0;
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: transparent;
+    -fx-size: 34;
+    -fx-border-color: transparent transparent #e3e8ee transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #3d4a5c;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+.table-row-cell {
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent;
+    -fx-cell-size: 30;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f8f9fb;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #f6e6dc;
+}
+
+.table-row-cell:selected .text {
+    -fx-fill: #1c2430;
+}
+
+.table-view .placeholder .label {
+    -fx-text-fill: #8a94a0;
+}
+
+/* ---------- график ---------- */
+
+.chart {
+    -fx-padding: 8;
+}
+
+.chart-plot-background {
+    -fx-background-color: #fafbfc;
+}
+
+.chart-vertical-grid-lines,
+.chart-horizontal-grid-lines {
+    -fx-stroke: #e6ebf0;
+}
+
+.axis-label,
+.chart-legend-item {
+    -fx-text-fill: #3d4a5c;
+}
+
+.default-color0.chart-bar {
+    -fx-bar-fill: #b85a2a;
+}
+
+.chart-bar {
+    -fx-background-radius: 3 3 0 0;
+}
+
+/* ---------- низ ---------- */
+
+.statusbar {
+    -fx-background-color: #f7f8fa;
+    -fx-border-color: #e1e6ec transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 8 14 8 14;
+}
+
+.statusbar .label {
+    -fx-text-fill: #667384;
+    -fx-font-size: 12px;
+}

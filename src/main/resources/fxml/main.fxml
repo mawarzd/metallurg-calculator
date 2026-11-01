@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.metallurg.calculator.ui.MainController"
+            styleClass="app-shell">
+
+    <top>
+        <VBox>
+            <MenuBar>
+                <Menu text="Файл">
+                    <MenuItem text="Импорт АКОС..." onAction="#onImportAkos"/>
+                    <MenuItem text="Импорт МНЛЗ..." onAction="#onImportMnlz"/>
+                    <SeparatorMenuItem/>
+                    <MenuItem text="Экспорт CSV..." onAction="#onExportCsv"/>
+                    <MenuItem text="Экспорт XLSX..." onAction="#onExportXlsx"/>
+                    <MenuItem text="Экспорт PDF..." onAction="#onExportPdf"/>
+                    <SeparatorMenuItem/>
+                    <MenuItem text="Выход" onAction="#onLogout"/>
+                </Menu>
+                <Menu text="Данные">
+                    <MenuItem text="Обновить таблицы" onAction="#refreshTables"/>
+                    <MenuItem text="Отчёт PDF (текущий расчёт)" onAction="#onReportCurrent"/>
+                </Menu>
+                <Menu text="Справка">
+                    <MenuItem text="О программе" onAction="#onAbout"/>
+                </Menu>
+            </MenuBar>
+            <HBox styleClass="toolbar" spacing="12" alignment="CENTER_LEFT">
+                <Label fx:id="userLabel" text="Пользователь"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="Режим ввода:"/>
+                <RadioButton fx:id="manualRadio" text="Вручную" selected="true">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="inputModeGroup"/>
+                    </toggleGroup>
+                </RadioButton>
+                <RadioButton fx:id="randomRadio" text="Генерация" toggleGroup="$inputModeGroup"/>
+                <RadioButton fx:id="fileRadio" text="Из файла" toggleGroup="$inputModeGroup"/>
+                <CheckBox fx:id="saveToDbCheck" text="Сохранять в БД" selected="true"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <TabPane fx:id="mainTabs" tabClosingPolicy="UNAVAILABLE">
+            <Tab text="АКОС">
+                <ScrollPane fitToWidth="true" styleClass="content-scroll">
+                    <VBox spacing="12" styleClass="card">
+                        <padding><Insets top="12" right="12" bottom="12" left="12"/></padding>
+                        <Label text="Раскисление и легирование на АКОС (формула 7.1)" styleClass="section-title"/>
+                        <GridPane hgap="8" vgap="8">
+                            <Label text="Марка стали" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                            <ComboBox fx:id="akosGradeCombo" editable="true" prefWidth="180"
+                                      GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                            <Label text="Масса плавки, кг" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                            <TextField fx:id="akosMassField" prefWidth="120"
+                                       GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+                            <Label text="Состав до, %" styleClass="field-caption"
+                                   GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="4"/>
+                            <HBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="4">
+                                <TextField fx:id="bC" promptText="C" prefWidth="70"/>
+                                <TextField fx:id="bMn" promptText="Mn" prefWidth="70"/>
+                                <TextField fx:id="bSi" promptText="Si" prefWidth="70"/>
+                                <TextField fx:id="bS" promptText="S" prefWidth="70"/>
+                                <TextField fx:id="bP" promptText="P" prefWidth="70"/>
+                                <TextField fx:id="bCr" promptText="Cr" prefWidth="70"/>
+                                <TextField fx:id="bNi" promptText="Ni" prefWidth="70"/>
+                                <TextField fx:id="bMo" promptText="Mo" prefWidth="70"/>
+                                <TextField fx:id="bAl" promptText="Al" prefWidth="70"/>
+                            </HBox>
+
+                            <Label text="Целевой состав, %" styleClass="field-caption"
+                                   GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="4"/>
+                            <HBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="4">
+                                <TextField fx:id="tC" promptText="C" prefWidth="70"/>
+                                <TextField fx:id="tMn" promptText="Mn" prefWidth="70"/>
+                                <TextField fx:id="tSi" promptText="Si" prefWidth="70"/>
+                                <TextField fx:id="tS" promptText="S" prefWidth="70"/>
+                                <TextField fx:id="tP" promptText="P" prefWidth="70"/>
+                                <TextField fx:id="tCr" promptText="Cr" prefWidth="70"/>
+                                <TextField fx:id="tNi" promptText="Ni" prefWidth="70"/>
+                                <TextField fx:id="tMo" promptText="Mo" prefWidth="70"/>
+                                <TextField fx:id="tAl" promptText="Al" prefWidth="70"/>
+                            </HBox>
+                        </GridPane>
+                        <HBox spacing="10">
+                            <Button text="Пример из книги (§7.2)" onAction="#onAkosExample"/>
+                            <Button text="Сгенерировать N" onAction="#onAkosGenerate"/>
+                            <TextField fx:id="akosGenCount" text="5" prefWidth="50"/>
+                            <Button text="Рассчитать" styleClass="primary" onAction="#onAkosCalculate" defaultButton="true"/>
+                        </HBox>
+                        <TextArea fx:id="akosResultArea" prefRowCount="12" editable="false" wrapText="true"/>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <Tab text="МНЛЗ">
+                <ScrollPane fitToWidth="true" styleClass="content-scroll">
+                    <VBox spacing="12" styleClass="card">
+                        <padding><Insets top="12" right="12" bottom="12" left="12"/></padding>
+                        <Label text="Основные параметры МНЛЗ (формулы 8.1–8.9)" styleClass="section-title"/>
+                        <GridPane hgap="10" vgap="8">
+                            <Label text="Марка" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                            <ComboBox fx:id="mnlzGradeCombo" editable="true" prefWidth="160"
+                                      GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                            <Label text="Садка, т" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                            <TextField fx:id="mnlzMassField" prefWidth="100"
+                                       GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+                            <Label text="Ширина B, м" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                            <TextField fx:id="mnlzWidthField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                            <Label text="Толщина b, м" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                            <TextField fx:id="mnlzThickField" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+                            <Label text="Скорость v, м/мин" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                            <TextField fx:id="mnlzSpeedField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                            <Label text="Цикл разливки τ, мин" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                            <TextField fx:id="mnlzTimeField" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
+                            <Label text="Коэффициент kз" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                            <TextField fx:id="mnlzKzField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                            <Label text="Тип заготовки" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                            <ChoiceBox fx:id="mnlzSectionChoice" prefWidth="160"
+                                       GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+                        </GridPane>
+                        <HBox spacing="10">
+                            <Button text="Пример из книги (§8.2)" onAction="#onMnlzExample"/>
+                            <Button text="Сгенерировать N" onAction="#onMnlzGenerate"/>
+                            <TextField fx:id="mnlzGenCount" text="5" prefWidth="50"/>
+                            <Button text="Рассчитать" styleClass="primary" onAction="#onMnlzCalculate"/>
+                        </HBox>
+                        <TextArea fx:id="mnlzResultArea" prefRowCount="10" editable="false" wrapText="true"/>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <Tab text="Журнал">
+                <VBox spacing="8" styleClass="page">
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Label text="Поиск/фильтр марки:"/>
+                        <TextField fx:id="filterField" prefWidth="180"/>
+                        <Button text="Найти" onAction="#onFilter"/>
+                        <Label text="Сортировка МНЛЗ:"/>
+                        <ComboBox fx:id="sortCombo" prefWidth="160"/>
+                        <CheckBox fx:id="sortAscCheck" text="по возрастанию" selected="true"/>
+                        <Button text="Удалить выбранное" onAction="#onDeleteSelected"/>
+                    </HBox>
+                    <Label text="Расчёты МНЛЗ" styleClass="section-title"/>
+                    <TableView fx:id="mnlzTable" VBox.vgrow="ALWAYS"/>
+                    <Label text="Расчёты АКОС" styleClass="section-title"/>
+                    <TableView fx:id="akosTable" prefHeight="180"/>
+                </VBox>
+            </Tab>
+
+            <Tab text="Графики">
+                <VBox spacing="8" styleClass="page">
+                    <HBox spacing="8">
+                        <Button text="Обновить график" styleClass="primary" onAction="#onRefreshChart"/>
+                        <Button text="Экспорт графика в PDF" onAction="#onExportChartPdf"/>
+                    </HBox>
+                    <BarChart fx:id="poolChart" animated="false" VBox.vgrow="ALWAYS">
+                        <xAxis><CategoryAxis label="Марка / id"/></xAxis>
+                        <yAxis><NumberAxis label="Глубина лунки Lл, м"/></yAxis>
+                    </BarChart>
+                </VBox>
+            </Tab>
+
+            <Tab text="Оборудование">
+                <VBox spacing="8" styleClass="page">
+                    <HBox spacing="8">
+                        <TextField fx:id="equipmentSearch" promptText="Поиск по названию" prefWidth="220"/>
+                        <ComboBox fx:id="equipmentTypeCombo" prefWidth="160"/>
+                        <Button text="Фильтр" onAction="#onEquipmentFilter"/>
+                        <Button text="Сбросить" onAction="#onEquipmentReset"/>
+                    </HBox>
+                    <TableView fx:id="equipmentTable" VBox.vgrow="ALWAYS"/>
+                </VBox>
+            </Tab>
+
+            <Tab text="Справка">
+                <ScrollPane fitToWidth="true" styleClass="content-scroll">
+                    <TextArea fx:id="helpArea" styleClass="help-text" editable="false" wrapText="true" prefRowCount="30"/>
+                </ScrollPane>
+            </Tab>
+        </TabPane>
+    </center>
+
+    <bottom>
+        <HBox styleClass="statusbar" spacing="12">
+            <Label fx:id="statusLabel" text="Готово"/>
+        </HBox>
+    </bottom>
+</BorderPane>
