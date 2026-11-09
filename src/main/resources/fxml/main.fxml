@@ -52,92 +52,245 @@
         <TabPane fx:id="mainTabs" tabClosingPolicy="UNAVAILABLE">
             <Tab text="АКОС">
                 <ScrollPane fitToWidth="true" styleClass="content-scroll">
-                    <VBox spacing="12" styleClass="card">
-                        <padding><Insets top="12" right="12" bottom="12" left="12"/></padding>
-                        <Label text="Раскисление и легирование на АКОС (формула 7.1)" styleClass="section-title"/>
-                        <GridPane hgap="8" vgap="8">
-                            <Label text="Марка стали" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                            <ComboBox fx:id="akosGradeCombo" editable="true" prefWidth="180"
-                                      GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-                            <Label text="Масса плавки, кг" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-                            <TextField fx:id="akosMassField" prefWidth="120"
-                                       GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+                    <VBox spacing="14" styleClass="page">
+                        <padding><Insets top="4" right="4" bottom="4" left="4"/></padding>
 
-                            <Label text="Состав до, %" styleClass="field-caption"
-                                   GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="4"/>
-                            <HBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="4">
-                                <TextField fx:id="bC" promptText="C" prefWidth="70"/>
-                                <TextField fx:id="bMn" promptText="Mn" prefWidth="70"/>
-                                <TextField fx:id="bSi" promptText="Si" prefWidth="70"/>
-                                <TextField fx:id="bS" promptText="S" prefWidth="70"/>
-                                <TextField fx:id="bP" promptText="P" prefWidth="70"/>
-                                <TextField fx:id="bCr" promptText="Cr" prefWidth="70"/>
-                                <TextField fx:id="bNi" promptText="Ni" prefWidth="70"/>
-                                <TextField fx:id="bMo" promptText="Mo" prefWidth="70"/>
-                                <TextField fx:id="bAl" promptText="Al" prefWidth="70"/>
-                            </HBox>
+                        <VBox styleClass="card" spacing="12">
+                            <Label text="Раскисление и легирование на АКОС" styleClass="section-title"/>
+                            <Label text="Расчёт расхода ферросплавов по формуле (7.1). Введите массу плавки и состав стали."
+                                   styleClass="hint" wrapText="true"/>
+                            <GridPane hgap="12" vgap="6">
+                                <Label text="Марка стали" styleClass="field-label"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <Label text="Масса жидкой стали, кг" styleClass="field-label"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                                <ComboBox fx:id="akosGradeCombo" editable="true" prefWidth="200" promptText="например, 40Х"
+                                          GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <TextField fx:id="akosMassField" prefWidth="160" promptText="например, 100000" styleClass="num-field"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                            </GridPane>
+                        </VBox>
 
-                            <Label text="Целевой состав, %" styleClass="field-caption"
-                                   GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="4"/>
-                            <HBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="4">
-                                <TextField fx:id="tC" promptText="C" prefWidth="70"/>
-                                <TextField fx:id="tMn" promptText="Mn" prefWidth="70"/>
-                                <TextField fx:id="tSi" promptText="Si" prefWidth="70"/>
-                                <TextField fx:id="tS" promptText="S" prefWidth="70"/>
-                                <TextField fx:id="tP" promptText="P" prefWidth="70"/>
-                                <TextField fx:id="tCr" promptText="Cr" prefWidth="70"/>
-                                <TextField fx:id="tNi" promptText="Ni" prefWidth="70"/>
-                                <TextField fx:id="tMo" promptText="Mo" prefWidth="70"/>
-                                <TextField fx:id="tAl" promptText="Al" prefWidth="70"/>
-                            </HBox>
-                        </GridPane>
-                        <HBox spacing="10">
+                        <HBox spacing="14">
+                            <VBox styleClass="card" spacing="10" minWidth="400">
+                                <Label text="Химический состав стали" styleClass="section-title"/>
+                                <GridPane hgap="12" vgap="6" styleClass="composition-grid">
+                                    <Label text="Элемент" styleClass="column-caption"
+                                           GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                    <Label text="До раскисления, %" styleClass="column-caption"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                                    <Label text="Готовая сталь, %" styleClass="column-caption"
+                                           GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                                    <HBox styleClass="element-cell" alignment="CENTER_LEFT" spacing="8"
+                                          GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                        <Label text="C" styleClass="element-symbol"/>
+                                        <Label text="Углерод" styleClass="element-name"/>
+                                    </HBox>
+                                    <TextField fx:id="bC" promptText="0.000" prefWidth="110" styleClass="num-field"
+                                               GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                        <tooltip><Tooltip text="Содержание углерода (C) в металле до раскисления, %"/></tooltip>
+                                    </TextField>
+                                    <TextField fx:id="tC" promptText="0.000" prefWidth="110" styleClass="num-field"
+                                               GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                        <tooltip><Tooltip text="Требуемое содержание углерода (C) в готовой стали, %"/></tooltip>
+                                    </TextField>
+                                    <HBox styleClass="element-cell" alignment="CENTER_LEFT" spacing="8"
+                                          GridPane.columnIndex="0" GridPane.rowIndex="2">
+                                        <Label text="Mn" styleClass="element-symbol"/>
+                                        <Label text="Марганец" styleClass="element-name"/>
+                                    </HBox>
+                                    <TextField fx:id="bMn" promptText="0.000" prefWidth="110" styleClass="num-field"
+                                               GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                        <tooltip><Tooltip text="Содержание марганца (Mn) в металле до раскисления, %"/></tooltip>
+                                    </TextField>
+                                    <TextField fx:id="tMn" promptText="0.000" prefWidth="110" styleClass="num-field"
+                                               GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                        <tooltip><Tooltip text="Требуемое содержание марганца (Mn) в готовой стали, %"/></tooltip>
+                                    </TextField>
+                                    <HBox styleClass="element-cell" alignment="CENTER_LEFT" spacing="8"
+                                          GridPane.columnIndex="0" GridPane.rowIndex="3">
+                                        <Label text="Si" styleClass="element-symbol"/>
+                                        <Label text="Кремний" styleClass="element-name"/>
+                                    </HBox>
+                                    <TextField fx:id="bSi" promptText="0.000" prefWidth="110" styleClass="num-field"
+                                               GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                        <tooltip><Tooltip text="Содержание кремния (Si) в металле до раскисления, %"/></tooltip>
+                                    </TextField>
+                                    <TextField fx:id="tSi" promptText="0.000" prefWidth="110" styleClass="num-field"
+                                               GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                        <tooltip><Tooltip text="Требуемое содержание кремния (Si) в готовой стали, %"/></tooltip>
+                                    </TextField>
+                                    <HBox styleClass="element-cell" alignment="CENTER_LEFT" spacing="8"
+                                          GridPane.columnIndex="0" GridPane.rowIndex="4">
+                                        <Label text="S" styleClass="element-symbol"/>
+                                        <Label text="Сера" styleClass="element-name"/>
+                                    </HBox>
+                                    <TextField fx:id="bS" promptText="0.000" prefWidth="110" styleClass="num-field"
+                                               GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                        <tooltip><Tooltip text="Содержание серы (S) в металле до раскисления, %"/></tooltip>
+                                    </TextField>
+                                    <TextField fx:id="tS" promptText="0.000" prefWidth="110" styleClass="num-field"
+                                               GridPane.columnIndex="2" GridPane.rowIndex="4">
+                                        <tooltip><Tooltip text="Требуемое содержание серы (S) в готовой стали, %"/></tooltip>
+                                    </TextField>
+                                    <HBox styleClass="element-cell" alignment="CENTER_LEFT" spacing="8"
+                                          GridPane.columnIndex="0" GridPane.rowIndex="5">
+                                        <Label text="P" styleClass="element-symbol"/>
+                                        <Label text="Фосфор" styleClass="element-name"/>
+                                    </HBox>
+                                    <TextField fx:id="bP" promptText="0.000" prefWidth="110" styleClass="num-field"
+                                               GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                        <tooltip><Tooltip text="Содержание фосфора (P) в металле до раскисления, %"/></tooltip>
+                                    </TextField>
+                                    <TextField fx:id="tP" promptText="0.000" prefWidth="110" styleClass="num-field"
+                                               GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                        <tooltip><Tooltip text="Требуемое содержание фосфора (P) в готовой стали, %"/></tooltip>
+                                    </TextField>
+                                    <HBox styleClass="element-cell" alignment="CENTER_LEFT" spacing="8"
+                                          GridPane.columnIndex="0" GridPane.rowIndex="6">
+                                        <Label text="Cr" styleClass="element-symbol"/>
+                                        <Label text="Хром" styleClass="element-name"/>
+                                    </HBox>
+                                    <TextField fx:id="bCr" promptText="0.000" prefWidth="110" styleClass="num-field"
+                                               GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                        <tooltip><Tooltip text="Содержание хрома (Cr) в металле до раскисления, %"/></tooltip>
+                                    </TextField>
+                                    <TextField fx:id="tCr" promptText="0.000" prefWidth="110" styleClass="num-field"
+                                               GridPane.columnIndex="2" GridPane.rowIndex="6">
+                                        <tooltip><Tooltip text="Требуемое содержание хрома (Cr) в готовой стали, %"/></tooltip>
+                                    </TextField>
+                                    <HBox styleClass="element-cell" alignment="CENTER_LEFT" spacing="8"
+                                          GridPane.columnIndex="0" GridPane.rowIndex="7">
+                                        <Label text="Ni" styleClass="element-symbol"/>
+                                        <Label text="Никель" styleClass="element-name"/>
+                                    </HBox>
+                                    <TextField fx:id="bNi" promptText="0.000" prefWidth="110" styleClass="num-field"
+                                               GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                        <tooltip><Tooltip text="Содержание никеля (Ni) в металле до раскисления, %"/></tooltip>
+                                    </TextField>
+                                    <TextField fx:id="tNi" promptText="0.000" prefWidth="110" styleClass="num-field"
+                                               GridPane.columnIndex="2" GridPane.rowIndex="7">
+                                        <tooltip><Tooltip text="Требуемое содержание никеля (Ni) в готовой стали, %"/></tooltip>
+                                    </TextField>
+                                    <HBox styleClass="element-cell" alignment="CENTER_LEFT" spacing="8"
+                                          GridPane.columnIndex="0" GridPane.rowIndex="8">
+                                        <Label text="Mo" styleClass="element-symbol"/>
+                                        <Label text="Молибден" styleClass="element-name"/>
+                                    </HBox>
+                                    <TextField fx:id="bMo" promptText="0.000" prefWidth="110" styleClass="num-field"
+                                               GridPane.columnIndex="1" GridPane.rowIndex="8">
+                                        <tooltip><Tooltip text="Содержание молибдена (Mo) в металле до раскисления, %"/></tooltip>
+                                    </TextField>
+                                    <TextField fx:id="tMo" promptText="0.000" prefWidth="110" styleClass="num-field"
+                                               GridPane.columnIndex="2" GridPane.rowIndex="8">
+                                        <tooltip><Tooltip text="Требуемое содержание молибдена (Mo) в готовой стали, %"/></tooltip>
+                                    </TextField>
+                                    <HBox styleClass="element-cell" alignment="CENTER_LEFT" spacing="8"
+                                          GridPane.columnIndex="0" GridPane.rowIndex="9">
+                                        <Label text="Al" styleClass="element-symbol"/>
+                                        <Label text="Алюминий" styleClass="element-name"/>
+                                    </HBox>
+                                    <TextField fx:id="bAl" promptText="0.000" prefWidth="110" styleClass="num-field"
+                                               GridPane.columnIndex="1" GridPane.rowIndex="9">
+                                        <tooltip><Tooltip text="Содержание алюминия (Al) в металле до раскисления, %"/></tooltip>
+                                    </TextField>
+                                    <TextField fx:id="tAl" promptText="0.000" prefWidth="110" styleClass="num-field"
+                                               GridPane.columnIndex="2" GridPane.rowIndex="9">
+                                        <tooltip><Tooltip text="Требуемое содержание алюминия (Al) в готовой стали, %"/></tooltip>
+                                    </TextField>
+                                </GridPane>
+                            </VBox>
+
+                            <VBox styleClass="card" spacing="10" HBox.hgrow="ALWAYS">
+                                <Label text="Результат расчёта" styleClass="section-title"/>
+                                <TextArea fx:id="akosResultArea" prefRowCount="14" editable="false" wrapText="true"
+                                          promptText="Здесь появится расход ферросплавов" VBox.vgrow="ALWAYS"/>
+                            </VBox>
+                        </HBox>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT" styleClass="action-bar">
                             <Button text="Пример из книги (§7.2)" onAction="#onAkosExample"/>
-                            <Button text="Сгенерировать N" onAction="#onAkosGenerate"/>
-                            <TextField fx:id="akosGenCount" text="5" prefWidth="50"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label text="Сгенерировать записей:" styleClass="field-label"/>
+                            <TextField fx:id="akosGenCount" text="5" prefWidth="56" styleClass="num-field"/>
+                            <Button text="Сгенерировать" onAction="#onAkosGenerate"/>
                             <Button text="Рассчитать" styleClass="primary" onAction="#onAkosCalculate" defaultButton="true"/>
                         </HBox>
-                        <TextArea fx:id="akosResultArea" prefRowCount="12" editable="false" wrapText="true"/>
                     </VBox>
                 </ScrollPane>
             </Tab>
 
             <Tab text="МНЛЗ">
                 <ScrollPane fitToWidth="true" styleClass="content-scroll">
-                    <VBox spacing="12" styleClass="card">
-                        <padding><Insets top="12" right="12" bottom="12" left="12"/></padding>
-                        <Label text="Основные параметры МНЛЗ (формулы 8.1–8.9)" styleClass="section-title"/>
-                        <GridPane hgap="10" vgap="8">
-                            <Label text="Марка" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                            <ComboBox fx:id="mnlzGradeCombo" editable="true" prefWidth="160"
-                                      GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-                            <Label text="Садка, т" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-                            <TextField fx:id="mnlzMassField" prefWidth="100"
-                                       GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+                    <VBox spacing="14" styleClass="page">
+                        <padding><Insets top="4" right="4" bottom="4" left="4"/></padding>
 
-                            <Label text="Ширина B, м" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                            <TextField fx:id="mnlzWidthField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                            <Label text="Толщина b, м" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-                            <TextField fx:id="mnlzThickField" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                        <VBox styleClass="card" spacing="12">
+                            <Label text="Основные параметры МНЛЗ" styleClass="section-title"/>
+                            <Label text="Число ручьёв, глубина лунки, радиус и высота машины — формулы (8.1)–(8.9)."
+                                   styleClass="hint" wrapText="true"/>
+                            <GridPane hgap="20" vgap="12">
+                                <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                    <Label text="Марка стали" styleClass="field-label"/>
+                                    <ComboBox fx:id="mnlzGradeCombo" editable="true" prefWidth="200" promptText="например, 40Х"/>
+                                </VBox>
+                                <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <Label text="Садка (масса плавки), т" styleClass="field-label"/>
+                                    <TextField fx:id="mnlzMassField" promptText="например, 100" prefWidth="200" styleClass="num-field"/>
+                                </VBox>
+                                <VBox spacing="4" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                    <Label text="Тип заготовки" styleClass="field-label"/>
+                                    <ChoiceBox fx:id="mnlzSectionChoice" prefWidth="200"/>
+                                </VBox>
 
-                            <Label text="Скорость v, м/мин" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                            <TextField fx:id="mnlzSpeedField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                            <Label text="Цикл разливки τ, мин" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
-                            <TextField fx:id="mnlzTimeField" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+                                <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                    <Label text="Ширина заготовки B, м" styleClass="field-label"/>
+                                    <TextField fx:id="mnlzWidthField" promptText="например, 1.2" prefWidth="200" styleClass="num-field">
+                                        <tooltip><Tooltip text="Ширина сечения заготовки B, м"/></tooltip>
+                                    </TextField>
+                                </VBox>
+                                <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <Label text="Толщина заготовки b, м" styleClass="field-label"/>
+                                    <TextField fx:id="mnlzThickField" promptText="например, 0.25" prefWidth="200" styleClass="num-field">
+                                        <tooltip><Tooltip text="Толщина сечения заготовки b, м"/></tooltip>
+                                    </TextField>
+                                </VBox>
+                                <VBox spacing="4" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                    <Label text="Скорость разливки v, м/мин" styleClass="field-label"/>
+                                    <TextField fx:id="mnlzSpeedField" promptText="например, 1.0" prefWidth="200" styleClass="num-field">
+                                        <tooltip><Tooltip text="Скорость вытягивания заготовки v, м/мин"/></tooltip>
+                                    </TextField>
+                                </VBox>
 
-                            <Label text="Коэффициент kз" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-                            <TextField fx:id="mnlzKzField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                            <Label text="Тип заготовки" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
-                            <ChoiceBox fx:id="mnlzSectionChoice" prefWidth="160"
-                                       GridPane.columnIndex="3" GridPane.rowIndex="3"/>
-                        </GridPane>
-                        <HBox spacing="10">
+                                <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                                    <Label text="Время разливки τ, мин" styleClass="field-label"/>
+                                    <TextField fx:id="mnlzTimeField" promptText="например, 60" prefWidth="200" styleClass="num-field">
+                                        <tooltip><Tooltip text="Допустимая длительность разливки плавки τ, мин"/></tooltip>
+                                    </TextField>
+                                </VBox>
+                                <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <Label text="Коэффициент затвердевания kз" styleClass="field-label"/>
+                                    <TextField fx:id="mnlzKzField" promptText="считается автоматически" prefWidth="200" styleClass="num-field">
+                                        <tooltip><Tooltip text="Подставляется по типу заготовки и размерам, можно изменить вручную"/></tooltip>
+                                    </TextField>
+                                </VBox>
+                            </GridPane>
+                        </VBox>
+
+                        <VBox styleClass="card" spacing="10">
+                            <Label text="Результат расчёта" styleClass="section-title"/>
+                            <TextArea fx:id="mnlzResultArea" prefRowCount="10" editable="false" wrapText="true"
+                                      promptText="Здесь появятся число ручьёв, глубина лунки, радиус и высота МНЛЗ"/>
+                        </VBox>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT" styleClass="action-bar">
                             <Button text="Пример из книги (§8.2)" onAction="#onMnlzExample"/>
-                            <Button text="Сгенерировать N" onAction="#onMnlzGenerate"/>
-                            <TextField fx:id="mnlzGenCount" text="5" prefWidth="50"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label text="Сгенерировать записей:" styleClass="field-label"/>
+                            <TextField fx:id="mnlzGenCount" text="5" prefWidth="56" styleClass="num-field"/>
+                            <Button text="Сгенерировать" onAction="#onMnlzGenerate"/>
                             <Button text="Рассчитать" styleClass="primary" onAction="#onMnlzCalculate"/>
                         </HBox>
-                        <TextArea fx:id="mnlzResultArea" prefRowCount="10" editable="false" wrapText="true"/>
                     </VBox>
                 </ScrollPane>
             </Tab>

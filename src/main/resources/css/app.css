@@ -406,3 +406,67 @@
     -fx-text-fill: #667384;
     -fx-font-size: 12px;
 }
+
+/* ---------- формы ввода ---------- */
+
+.field-label {
+    -fx-text-fill: #3d4a5c;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.column-caption {
+    -fx-text-fill: #5c6775;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 4 0;
+}
+
+.composition-grid {
+    -fx-padding: 0;
+}
+
+.element-cell {
+    -fx-min-width: 150;
+}
+
+.element-symbol {
+    -fx-background-color: #f3e6dc;
+    -fx-background-radius: 6;
+    -fx-text-fill: #9a4a20;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-min-width: 34;
+    -fx-pref-width: 34;
+    -fx-alignment: center;
+    -fx-padding: 4 0 4 0;
+}
+
+.element-name {
+    -fx-text-fill: #3d4a5c;
+    -fx-font-size: 13px;
+}
+
+.num-field {
+    -fx-alignment: center-right;
+}
+
+.action-bar {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12;
+    -fx-border-color: #e3e8ee;
+    -fx-border-radius: 12;
+    -fx-padding: 12 16 12 16;
+}
+
+.hint {
+    -fx-text-fill: #8a94a0;
+    -fx-font-size: 12px;
+}
+
+.tooltip {
+    -fx-background-color: #1e2a36;
+    -fx-text-fill: #f3efe9;
+    -fx-background-radius: 6;
+    -fx-font-size: 12px;
+}
